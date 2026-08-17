@@ -457,26 +457,13 @@ if st.button(
 
         prediction = max(0, prediction)
 
-        st.markdown(
-            f"""
-            <div class="prediction-card">
-
-                <div style="font-size:1.2rem;">
-                    🏠 Estimated Monthly Rent
-                </div>
-
-                <div class="prediction-value">
-                    BHD {prediction:,.0f}
-                </div>
-
-                <div class="small-text">
-                    Estimated using the trained XGBoost model
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+       st.markdown(
+    f'<div style="text-align:center; padding:1.5rem 0;">'
+    f'<div style="font-size:1.1rem; color:#64748b;">🏠 Estimated Monthly Rent</div>'
+    f'<div style="font-size:3.5rem; font-weight:800; color:#111827;">BHD {prediction:,.0f}</div>'
+    f'<div style="font-size:0.9rem; color:#94a3b8;">Estimated using the trained XGBoost model</div>'
+    f'</div>',
+    unsafe_allow_html=True)
 
         st.balloons()
 
