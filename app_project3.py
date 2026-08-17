@@ -186,17 +186,7 @@ agencies = [
 # =========================================================
 
 st.markdown("""
-<div class="hero">
-
-<h1>🏠 Bahrain Rent Predictor</h1>
-
-<p>
-Estimate the monthly rental price of a property in Bahrain
-using a machine learning model trained on real property listings.
-</p>
-
-</div>
-""", unsafe_allow_html=True)
+<div class="hero"><h1>🏠 Bahrain Rent Predictor</h1><p>Estimate the monthly rental price of a property in Bahrainusing a machine learning model trained on real property listings.</p></div>""", unsafe_allow_html=True)
 
 # =========================================================
 # MODEL PERFORMANCE
@@ -205,40 +195,16 @@ using a machine learning model trained on real property listings.
 c1, c2, c3, c4 = st.columns(4)
 
 with c1:
-    st.markdown("""
-    <div class="metric-card">
-        <h4>🤖 Model</h4>
-        <h3>XGBoost</h3>
-        <p class="small-text">Tuned Model</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("""<div class="metric-card"><h4>🤖 Model</h4><h3>XGBoost</h3><p class="small-text">Tuned Model</p></div>""", unsafe_allow_html=True)
 
 with c2:
-    st.markdown("""
-    <div class="metric-card">
-        <h4>📈 Test R²</h4>
-        <h3>77.9%</h3>
-        <p class="small-text">Model performance</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("""<div class="metric-card"><h4>📈 Test R²</h4><h3>77.9%</h3><p class="small-text">Model performance</p></div>""", unsafe_allow_html=True)
 
 with c3:
-    st.markdown("""
-    <div class="metric-card">
-        <h4>💰 Test MAE</h4>
-        <h3>≈ BHD 99</h3>
-        <p class="small-text">Average absolute error</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("""<div class="metric-card"><h4>💰 Test MAE</h4><h3>≈ BHD 99</h3><p class="small-text">Average absolute error</p></div>""", unsafe_allow_html=True)
 
 with c4:
-    st.markdown("""
-    <div class="metric-card">
-        <h4>🏘️ Properties</h4>
-        <h3>10K+</h3>
-        <p class="small-text">After data cleaning</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("""<div class="metric-card"><h4>🏘️ Properties</h4><h3>10K+</h3><p class="small-text">After data cleaning</p></div>""", unsafe_allow_html=True)
 
 st.markdown("---")
 
