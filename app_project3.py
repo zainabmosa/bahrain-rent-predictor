@@ -641,27 +641,4 @@ with st.expander("📊 What Influences Rent?"):
 # FOOTER
 # =========================================================
 
-st.markdown(
-    """
-    <div style="
-        text-align:center;
-        padding:2rem 0 1rem 0;
-        color:#64748b;
-    ">
-
-        🏠 <b>Bahrain Rent Predictor</b>
-
-        <br><br>
-
-        Built with Python • XGBoost • Streamlit
-
-        <br><br>
-
-        <small>
-        Data Science Project
-        </small>
-
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""<div style="text-align:center;padding:2rem 0 1rem 0;color:#64748b;">🏠 <b>Bahrain Rent Predictor</b><br><br>Built with Python • XGBoost • Streamlit<br><br><small>Data Science Project</small></div>""",unsafe_allow_html=True)
