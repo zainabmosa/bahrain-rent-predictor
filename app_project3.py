@@ -18,9 +18,9 @@ st.set_page_config(
 # CUSTOM CSS
 # =========================================================
 
-st.markdown("""
-<style>
-
+st.markdown(
+    """
+    <style>
     .main {
         background-color: #f8fafc;
     }
@@ -63,36 +63,25 @@ st.markdown("""
         box-shadow: 0 4px 14px rgba(0,0,0,0.04);
     }
 
-    .prediction-card {
-        background: linear-gradient(
-            135deg,
-            #ecfdf5,
-            #f0fdf4
-        );
-        padding: 2rem;
-        border-radius: 24px;
-        border: 2px solid #86efac;
-        text-align: center;
-        margin-top: 1.5rem;
-    }
-
     .prediction-value {
-        font-size: 3rem;
+        font-size: 3.5rem;
         font-weight: 800;
-        color: #166534;
+        color: #111827;
+        line-height: 1.1;
     }
 
     .small-text {
-        color: #64748b;
+        color: #94a3b8;
         font-size: 0.9rem;
     }
 
     div[data-testid="stSidebar"] {
         background-color: #f1f5f9;
     }
-
-</style>
-""", unsafe_allow_html=True)
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # =========================================================
 # LOAD MODEL
@@ -108,12 +97,12 @@ try:
 except Exception:
     st.error(
         "⚠️ Model file not found. Please make sure "
-        "`bahrain_rent_model.pkl` is in the same folder as `app.py`."
+        "`bahrain_rent_model.pkl` is in the same folder as the app."
     )
     st.stop()
 
 # =========================================================
-# AREA OPTIONS
+# OPTIONS
 # =========================================================
 
 areas = [
@@ -185,8 +174,18 @@ agencies = [
 # HERO
 # =========================================================
 
-st.markdown("""
-<div class="hero"><h1>🏠 Bahrain Rent Predictor</h1><p>Estimate the monthly rental price of a property in Bahrainusing a machine learning model trained on real property listings.</p></div>""", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div class="hero">
+        <h1>🏠 Bahrain Rent Predictor</h1>
+        <p>
+            Estimate the monthly rental price of a property in Bahrain
+            using a machine learning model trained on property listings.
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # =========================================================
 # MODEL PERFORMANCE
@@ -195,16 +194,52 @@ st.markdown("""
 c1, c2, c3, c4 = st.columns(4)
 
 with c1:
-    st.markdown("""<div class="metric-card"><h4>🤖 Model</h4><h3>XGBoost</h3><p class="small-text">Tuned Model</p></div>""", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class="metric-card">
+            <h4>🤖 Model</h4>
+            <h3>XGBoost</h3>
+            <p class="small-text">Tuned Model</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 with c2:
-    st.markdown("""<div class="metric-card"><h4>📈 Test R²</h4><h3>77.9%</h3><p class="small-text">Model performance</p></div>""", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class="metric-card">
+            <h4>📈 Test R²</h4>
+            <h3>77.9%</h3>
+            <p class="small-text">Model performance</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 with c3:
-    st.markdown("""<div class="metric-card"><h4>💰 Test MAE</h4><h3>≈ BHD 99</h3><p class="small-text">Average absolute error</p></div>""", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class="metric-card">
+            <h4>💰 Test MAE</h4>
+            <h3>≈ BHD 99</h3>
+            <p class="small-text">Average absolute error</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 with c4:
-    st.markdown("""<div class="metric-card"><h4>🏘️ Properties</h4><h3>10K+</h3><p class="small-text">After data cleaning</p></div>""", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div class="metric-card">
+            <h4>🏘️ Project</h4>
+            <h3>Real Estate</h3>
+            <p class="small-text">Bahrain Market</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 st.markdown("---")
 
@@ -318,7 +353,7 @@ semi_furnished = st.sidebar.checkbox("Semi-furnished")
 unfurnished = st.sidebar.checkbox("Unfurnished")
 
 # =========================================================
-# MAIN INPUT SUMMARY
+# PROPERTY SUMMARY
 # =========================================================
 
 st.subheader("🏡 Your Property")
@@ -338,6 +373,7 @@ with summary2:
     )
 
 with summary3:
+
     features_count = sum([
         sea_view,
         pool,
@@ -353,9 +389,17 @@ with summary3:
         renovated
     ])
 
+    furnishing_status = (
+        "Furnished"
+        if furnished
+        else "Semi-furnished"
+        if semi_furnished
+        else "Unfurnished"
+    )
+
     st.info(
         f"**{features_count} Special Features**\n\n"
-        f"{'Furnished' if furnished else 'Unfurnished'}"
+        f"{furnishing_status}"
     )
 
 # =========================================================
@@ -365,6 +409,7 @@ with summary3:
 def create_features():
 
     maid_room = 0
+
     is_studio = 1 if beds == 0 else 0
 
     total_rooms = beds + baths + maid_room
@@ -457,33 +502,71 @@ if st.button(
 
         prediction = max(0, prediction)
 
-       st.markdown(
-    f'<div style="text-align:center; padding:1.5rem 0;">'
-    f'<div style="font-size:1.1rem; color:#64748b;">🏠 Estimated Monthly Rent</div>'
-    f'<div style="font-size:3.5rem; font-weight:800; color:#111827;">BHD {prediction:,.0f}</div>'
-    f'<div style="font-size:0.9rem; color:#94a3b8;">Estimated using the trained XGBoost model</div>'
-    f'</div>',
-    unsafe_allow_html=True)
+        # -------------------------------------------------
+        # CLEAN PREDICTION DISPLAY
+        # -------------------------------------------------
 
-        st.balloons()
+        st.markdown(
+            f'<div style="text-align:center; padding:1.5rem 0;">'
+            f'<div style="font-size:1.1rem; color:#64748b;">'
+            f'🏠 Estimated Monthly Rent'
+            f'</div>'
+            f'<div style="font-size:3.5rem; font-weight:800; color:#111827;">'
+            f'BHD {prediction:,.0f}'
+            f'</div>'
+            f'<div style="font-size:0.9rem; color:#94a3b8;">'
+            f'Estimated using the trained XGBoost model'
+            f'</div>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
+
+        # -------------------------------------------------
+        # PREDICTION SUMMARY
+        # -------------------------------------------------
 
         st.markdown("### 📋 Prediction Summary")
 
         result_col1, result_col2 = st.columns(2)
 
         with result_col1:
-            st.write("**Property:**", property_type)
-            st.write("**Location:**", area)
-            st.write("**Governorate:**", governorate)
+
+            st.write(
+                "**Property:**",
+                property_type
+            )
+
+            st.write(
+                "**Location:**",
+                area
+            )
+
+            st.write(
+                "**Governorate:**",
+                governorate
+            )
 
         with result_col2:
-            st.write("**Size:**", f"{size_sqm:,} sqm")
-            st.write("**Bedrooms:**", beds)
-            st.write("**Bathrooms:**", baths)
+
+            st.write(
+                "**Size:**",
+                f"{size_sqm:,} sqm"
+            )
+
+            st.write(
+                "**Bedrooms:**",
+                beds
+            )
+
+            st.write(
+                "**Bathrooms:**",
+                baths
+            )
 
         st.success(
-            "💡 This prediction is an estimate and actual rental prices "
-            "may vary depending on market conditions and property details."
+            "💡 This prediction is an estimate. "
+            "Actual rental prices may vary depending on "
+            "market conditions and property details."
         )
 
     except Exception as e:
@@ -499,22 +582,25 @@ st.markdown("---")
 
 with st.expander("🤖 About the Model"):
 
-    st.write("""
-    This application uses a tuned XGBoost regression model developed
-    as part of a Bahrain property rental price prediction project.
+    st.write(
+        """
+        This application uses a tuned XGBoost regression model
+        developed for Bahrain property rental price prediction.
 
-    The model was compared against several regression algorithms,
-    including Linear Regression, Decision Tree, Random Forest,
-    Gradient Boosting, Extra Trees, and LightGBM.
-    """)
+        Several regression algorithms were compared before selecting
+        XGBoost as the final model.
+        """
+    )
 
-    st.markdown("""
-    **Final Test Performance**
+    st.markdown(
+        """
+        **Final Test Performance**
 
-    - MAE: **99.06 BHD**
-    - RMSE: **183.99 BHD**
-    - R²: **0.779**
-    """)
+        - MAE: **99.06 BHD**
+        - RMSE: **183.99 BHD**
+        - R²: **0.779**
+        """
+    )
 
 # =========================================================
 # TOP FEATURES
@@ -555,24 +641,27 @@ with st.expander("📊 What Influences Rent?"):
 # FOOTER
 # =========================================================
 
-st.markdown("""
-<div style="
-    text-align:center;
-    padding:2rem 0 1rem 0;
-    color:#64748b;
-">
+st.markdown(
+    """
+    <div style="
+        text-align:center;
+        padding:2rem 0 1rem 0;
+        color:#64748b;
+    ">
 
-🏠 <b>Bahrain Rent Predictor</b>
+        🏠 <b>Bahrain Rent Predictor</b>
 
-<br>
+        <br><br>
 
-Built with Python • Scikit-learn • XGBoost • Streamlit
+        Built with Python • XGBoost • Streamlit
 
-<br><br>
+        <br><br>
 
-<small>
-Data Science Project
-</small>
+        <small>
+        Data Science Project
+        </small>
 
-</div>
-""", unsafe_allow_html=True)
+    </div>
+    """,
+    unsafe_allow_html=True
+)
